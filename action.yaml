@@ -1,0 +1,39 @@
+name: 'Build Docker image'
+description: 'Action for building docker container image'
+inputs:
+  sa-key:
+    required: true
+    description: 'Service account key in base64 format'
+  gar-location:
+    required: true
+  file:
+    required: false
+    default: 'Dockerfile'
+  build-args:
+    required: false
+  push:
+    required: false
+    default: true
+runs:
+  using: "composite"
+  steps:
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to GAR
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ inputs.gar-location }}-docker.pkg.dev
+        username: _json_key_base64
+        password: ${{ inputs.sa-key }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: ${{ inputs.push }}
+        file: ${{ inputs.file }}
+        build-args: ${{ inputs.build-args }}
+        tags: ${{ inputs.tags }}
