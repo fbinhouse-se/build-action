@@ -11,6 +11,8 @@ inputs:
     default: 'Dockerfile'
   build-args:
     required: false
+  tags:
+    required: true
   push:
     required: false
     default: true
