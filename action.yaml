@@ -13,6 +13,8 @@ inputs:
     required: false
   tags:
     required: true
+  cache-from:
+    required: false
   push:
     required: false
     default: true
@@ -39,3 +41,4 @@ runs:
         file: ${{ inputs.file }}
         build-args: ${{ inputs.build-args }}
         tags: ${{ inputs.tags }}
+        cache-from: ${{ inputs.cache-from }}
