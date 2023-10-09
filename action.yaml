@@ -39,6 +39,7 @@ runs:
       with:
         push: ${{ inputs.push }}
         file: ${{ inputs.file }}
-        build-args: ${{ inputs.build-args }}
+        build-args: |
+          ${{ inputs.build-args }}
         tags: ${{ inputs.tags }}
         cache-from: ${{ inputs.cache-from }}
